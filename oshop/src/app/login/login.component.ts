@@ -1,7 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Injectable } from '@angular/core';
 import * as firebase from "firebase";
 //import { AngularFireAuth } from '../../../node_modules/angularfire2/auth';
 import { AngularFireAuth } from "angularfire2/auth";
+
+import {Observable} from 'rxjs';
+
 
 @Component({
   selector: 'app-login',
@@ -10,12 +13,18 @@ import { AngularFireAuth } from "angularfire2/auth";
 })
 export class LoginComponent {
 
-  constructor(private afAuth: AngularFireAuth) { }
+  user: Observable<firebase.User>;
+  constructor(private afAuth: AngularFireAuth) {
+
+    this.user = afAuth.authState;
+   }
 
  
 
   login(){
-      this.afAuth.auth.signInWithRedirect(new firebase.auth.GoogleAuthProvider());
+      const provider = new firebase.auth.GoogleAuthProvider();
+      this.afAuth.auth.signInWithPopup(provider);
+
   }
 
 }
