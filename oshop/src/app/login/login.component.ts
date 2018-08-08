@@ -4,6 +4,7 @@ import * as firebase from "firebase";
 import { AngularFireAuth } from "angularfire2/auth";
 
 import {Observable} from 'rxjs';
+import { AuthServiceService } from '../auth-service.service';
 
 
 @Component({
@@ -13,18 +14,12 @@ import {Observable} from 'rxjs';
 })
 export class LoginComponent {
 
-  user: Observable<firebase.User>;
-  constructor(private afAuth: AngularFireAuth) {
-
-    this.user = afAuth.authState;
-   }
-
+  user: firebase.User;
+  constructor(private auth: AuthServiceService) {
  
-
-  login(){
-      const provider = new firebase.auth.GoogleAuthProvider();
-      this.afAuth.auth.signInWithPopup(provider);
-
   }
 
+  login(){
+      this.auth.login();
+     }
 }
