@@ -20,6 +20,7 @@ import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
 import { AuthServiceService } from "./auth-service.service";
 import { AuthGuardService } from "./auth-guard.service";
 import { UserService } from "./user.service";
+import { ProductFormComponent } from './admin/product-form/product-form.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +34,8 @@ import { UserService } from "./user.service";
     MyOrdersComponent,
     AdminProductsComponent,
     AdminOrdersComponent,
-    LoginComponent
+    LoginComponent,
+    ProductFormComponent
   ],
   imports: [
     BrowserModule,
@@ -52,6 +54,7 @@ import { UserService } from "./user.service";
       { path: "my/orders", component: MyOrdersComponent , canActivate: [AuthGuardService]},
      
       { path: "admin/products", component: AdminProductsComponent },
+      { path: "admin/products/new", component: ProductFormComponent },
       { path: "admin/orders", component: AdminOrdersComponent }
     ])
   ],
