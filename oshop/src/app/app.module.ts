@@ -1,4 +1,5 @@
 import { LoginComponent } from "./login/login.component";
+import { FormsModule } from "@angular/forms"
 import { environment } from "./../environments/environment";
 import { BrowserModule } from "@angular/platform-browser";
 import { NgModule } from "@angular/core";
@@ -21,6 +22,9 @@ import { AuthServiceService } from "./auth-service.service";
 import { AuthGuardService } from "./auth-guard.service";
 import { UserService } from "./user.service";
 import { ProductFormComponent } from './admin/product-form/product-form.component';
+import { CategoryService } from "./category.service";
+import { CustomFormsModule } from 'ng2-validation'
+import { ProductService } from "./product.service";
 
 @NgModule({
   declarations: [
@@ -36,11 +40,14 @@ import { ProductFormComponent } from './admin/product-form/product-form.componen
     AdminOrdersComponent,
     LoginComponent,
     ProductFormComponent
+    
   ],
   imports: [
     BrowserModule,
     AngularFireModule.initializeApp(environment.firebase),
+    CustomFormsModule,
     AngularFireDatabaseModule,
+    FormsModule,
     AngularFireAuthModule,
     NgbModule.forRoot(),
     RouterModule.forRoot([
@@ -58,7 +65,7 @@ import { ProductFormComponent } from './admin/product-form/product-form.componen
       { path: "admin/orders", component: AdminOrdersComponent }
     ])
   ],
-  providers: [AuthServiceService,AuthGuardService,UserService],
+  providers: [AuthServiceService,AuthGuardService,UserService,CategoryService,ProductService],
   bootstrap: [AppComponent]
 })
 export class AppModule {}
