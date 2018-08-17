@@ -1,5 +1,5 @@
 import { LoginComponent } from "./login/login.component";
-import { FormsModule } from "@angular/forms"
+import { FormsModule } from "@angular/forms";
 import { environment } from "./../environments/environment";
 import { BrowserModule } from "@angular/platform-browser";
 import { NgModule } from "@angular/core";
@@ -21,9 +21,9 @@ import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
 import { AuthServiceService } from "./auth-service.service";
 import { AuthGuardService } from "./auth-guard.service";
 import { UserService } from "./user.service";
-import { ProductFormComponent } from './admin/product-form/product-form.component';
+import { ProductFormComponent } from "./admin/product-form/product-form.component";
 import { CategoryService } from "./category.service";
-import { CustomFormsModule } from 'ng2-validation'
+import { CustomFormsModule } from "ng2-validation";
 import { ProductService } from "./product.service";
 
 @NgModule({
@@ -40,7 +40,6 @@ import { ProductService } from "./product.service";
     AdminOrdersComponent,
     LoginComponent,
     ProductFormComponent
-    
   ],
   imports: [
     BrowserModule,
@@ -56,16 +55,35 @@ import { ProductService } from "./product.service";
       { path: "shopping-cart", component: ShoppingCartComponent },
       { path: "login", component: LoginComponent },
 
-      { path: "check-out", component: CheckOutComponent , canActivate: [AuthGuardService]},
-      { path: "order-success", component: OrderSuccessComponent, canActivate: [AuthGuardService] },
-      { path: "my/orders", component: MyOrdersComponent , canActivate: [AuthGuardService]},
-     
+      {
+        path: "check-out",
+        component: CheckOutComponent,
+        canActivate: [AuthGuardService]
+      },
+      {
+        path: "order-success",
+        component: OrderSuccessComponent,
+        canActivate: [AuthGuardService]
+      },
+      {
+        path: "my/orders",
+        component: MyOrdersComponent,
+        canActivate: [AuthGuardService]
+      },
+
       { path: "admin/products", component: AdminProductsComponent },
       { path: "admin/products/new", component: ProductFormComponent },
+      { path: "admin/products/:id", component: ProductFormComponent },
       { path: "admin/orders", component: AdminOrdersComponent }
     ])
   ],
-  providers: [AuthServiceService,AuthGuardService,UserService,CategoryService,ProductService],
+  providers: [
+    AuthServiceService,
+    AuthGuardService,
+    UserService,
+    CategoryService,
+    ProductService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {}
