@@ -20,6 +20,7 @@ import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
 import { AuthServiceService } from "./auth-service.service";
 import { AuthGuardService } from "./auth-guard.service";
 import { UserService } from "./user.service";
+import { AdminAuthService } from "./admin-auth.service";
 
 @NgModule({
   declarations: [
@@ -55,7 +56,7 @@ import { UserService } from "./user.service";
       { path: "admin/orders", component: AdminOrdersComponent }
     ])
   ],
-  providers: [AuthServiceService,AuthGuardService,UserService],
+  providers: [AuthServiceService,AuthGuardService,UserService,AdminAuthService],
   bootstrap: [AppComponent]
 })
 export class AppModule {}
