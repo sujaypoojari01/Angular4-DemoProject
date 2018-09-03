@@ -7,6 +7,7 @@ import { Router, ActivatedRoute } from "@angular/router";
 import { AppUser } from "../../model/app-user";
 import { element } from "../../../../node_modules/@angular/core/src/render3/instructions";
 import { NgForm } from "../../../../node_modules/@angular/forms";
+import { take, elementAt } from "rxjs/operators";
 
 @Component({
   selector: "app-product-form",
@@ -16,6 +17,14 @@ import { NgForm } from "../../../../node_modules/@angular/forms";
 export class ProductFormComponent implements OnInit {
   categories$;
   product;
+  /* arr = {
+    0: String,
+    1: String,
+    2: 0,
+    3: String
+  }; */
+  data = [];
+  product1;
 
   constructor(
     private categoryService: CategoryService,
@@ -23,28 +32,29 @@ export class ProductFormComponent implements OnInit {
     private route: ActivatedRoute,
     private productService: ProductService
   ) {
-    /* var x = this.employeeService.getData();
-    x.snapshotChanges().subscribe(item => {
-      this.employeeList = [];
-      item.forEach(element => {
-        var y = element.payload.toJSON();
-        y["$key"] = element.key;
-        this.employeeList.push(y as Employee);
-      });
-    }); */
-
     let id = this.route.snapshot.paramMap.get("id");
-    if (id)
-      this.productService
+    console.log("id is : " + id);
+    if (id) {
+      this.product1 = this.productService
         .get(id)
         .valueChanges()
-        .subscribe(p => (this.product = p));
+        .pipe(take(1));
+      this.product1.subscribe(p => {
+        /* (this.product = p) */
+        this.data = p;
+        this.product = p;
+        console.log(p);
+        let i = 0;
+        this.data.forEach(element => {
+          console.log(element);
+          /*  this.arr[i] = element;
+          i = i + 1; */
+        });
+      });
 
-    console.log("key is " + this.product);
-
-    /*  this.categoryService.getCategories().subscribe(snaps => {
-    this.categories$ = snaps;
-    }); */
+      console.log("Product ");
+      console.log(this.product);
+    }
   }
 
   ngOnInit() {

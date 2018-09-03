@@ -52,7 +52,10 @@ export class AdminProductsComponent implements OnInit, OnDestroy {
       this.productList = [];
       item.forEach(element => {
         var y = element.payload.toJSON();
-        y["$key"] = element.key;
+        y["$key"] = "" + element.key;
+        console.log(element.key);
+        console.log(y);
+
         this.productList.push(y as AppUser);
       });
     });

@@ -15,10 +15,10 @@
         <tr *ngFor="let p of productList">
             <td>{{p.title}}</td>
             <td> {{p.price}} </td>
-            <td> {{p.key}} </td>
+            <td> {{p.$key}} </td>
             <td>
-                <a class="btn" (click)="onEdit(p)">Edit</a>
-                <!--  <a [routerLink]="['/admin/products/',p]">Edit</a> -->
+                <!-- <a class="btn" (click)="onEdit(p)">Edit</a> -->
+                <a [routerLink]="['/admin/products/',p.$key]">Edit</a>
             </td>
         </tr>
     </tbody>

@@ -2,6 +2,8 @@ import { Injectable } from "@angular/core";
 import { AngularFireDatabase, AngularFireList } from "angularfire2/database";
 import { map } from "rxjs/operators";
 import { AppUser } from "./model/app-user";
+import { pipe } from "@angular/core/src/render3/pipe";
+import { take } from "rxjs/operators";
 
 @Injectable({
   providedIn: "root"
@@ -30,6 +32,16 @@ export class ProductService {
   }
 
   get(productId) {
+    console.log(
+      "prodID = " +
+        productId +
+        " and Data: " +
+        this.db
+          .list("/products/" + productId)
+          .valueChanges()
+          .pipe(take(1))
+    );
+
     return this.db.list("/products/" + productId);
   }
 
