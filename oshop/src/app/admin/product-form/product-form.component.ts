@@ -1,7 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { CategoryService } from "../../category.service";
 
-import { AngularFireObject, AngularFireList } from "angularfire2/database";
 import { ProductService } from "../../product.service";
 import { Router, ActivatedRoute } from "@angular/router";
 import { AppUser } from "../../model/app-user";
@@ -37,38 +36,9 @@ export class ProductFormComponent implements OnInit {
     private router: Router,
     private route: ActivatedRoute,
     private productService: ProductService
-  ) {
-    let id = this.route.snapshot.paramMap.get("id");
-    console.log("id is : " + id);
-    if (id) {
-      /*  this.product1 = this.productService
-        .get(id)
-        .valueChanges()
-        .pipe(take(1)); */
-      /* this.product1.subscribe(p => {
-        //(this.product = p)
-        this.data = p;
-        this.product = p;
-        console.log(p);
-        let i = 0;
-        this.data.map(element => {
-          console.log("" + element);
-        });
-      }); */
+  ) {}
 
-      this.product1 = this.productService
-        .get(id)
-        .valueChanges()
-        .pipe(take(1));
-      this.product1.subscribe(p => {
-        this.data = p;
-      });
-      console.log(this.product);
-
-      /* console.log("Product ");
-      console.log(this.product); */
-    }
-  }
+  tempProduct;
 
   ngOnInit() {
     this.productService.getAll();
@@ -76,17 +46,16 @@ export class ProductFormComponent implements OnInit {
     this.categoryService.getCategories().subscribe(snaps => {
       this.categories$ = snaps;
     });
+
+    this.tempProduct = this.productService.getSavedProduct();
+
     /*  */
   }
 
-  /* save(product) {
-    console.log(product);
-    this.productService.insertProduct(product);
-    this.router.navigate(["/admin/products"]);
-  } */
-
   onSubmit(productForm: NgForm) {
-    this.productService.insertProduct(productForm.value);
+    if (!productForm.value.$key)
+      this.productService.insertProduct(productForm.value);
+    else this.productService.updateProduct(productForm.value);
     this.resetForm(productForm);
     this.router.navigate(["/admin/products"]);
   }

@@ -15,6 +15,7 @@ export class ProductService {
   dataRef;
   productList: AngularFireList<any>;
   selectedProduct: AppUser = new AppUser();
+  tempProduct: AppUser = new AppUser();
   constructor(private db: AngularFireDatabase) {}
 
   /* create(product) {
@@ -60,5 +61,21 @@ export class ProductService {
 
   deleteProduct($key: string) {
     this.productList.remove($key);
+  }
+
+  saveProductDetails(product) {
+    //console.log("Saved Data : " + product);
+    this.tempProduct.$key = product.$key;
+    this.tempProduct.title = product.title;
+    this.tempProduct.category = product.category;
+    this.tempProduct.imageUrl = product.imageUrl;
+    this.tempProduct.price = product.price;
+    //console.log(this.tempProduct);
+  }
+
+  getSavedProduct() {
+    console.log("In Get Saved Data : ");
+    console.log(this.tempProduct);
+    return this.tempProduct;
   }
 }

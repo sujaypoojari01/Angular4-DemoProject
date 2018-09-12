@@ -17,8 +17,11 @@
             <td> {{p.price}} </td>
             <td> {{p.$key}} </td>
             <td>
-                <!-- <a class="btn" (click)="onEdit(p)">Edit</a> -->
-                <a [routerLink]="['/admin/products/',p.$key]">Edit</a>
+                <a class="btn" (click)="onEdit(p)">Edit</a>
+                <!-- <a [routerLink]="['/admin/products/',p.$key]">Edit</a> -->
+            </td>
+            <td>
+                <a class="btn" (click)="onDelete(p)">Delete</a>
             </td>
         </tr>
     </tbody>
