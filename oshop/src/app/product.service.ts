@@ -4,6 +4,9 @@ import { map } from "rxjs/operators";
 import { AppUser } from "./model/app-user";
 import { pipe } from "@angular/core/src/render3/pipe";
 import { take } from "rxjs/operators";
+import { ProductData } from "./ProductData";
+import { Observable } from "rxjs";
+import { element } from "protractor";
 
 @Injectable({
   providedIn: "root"
@@ -18,6 +21,7 @@ export class ProductService {
     return this.db.list("/products").push(product);
   } */
   getAll() {
+    /* this.productList = this.db.list("/products").snapshotChanges().subscribe(element => {element.json()}); */
     this.productList = this.db.list("/products");
     return this.productList;
     // return this.dataRef;

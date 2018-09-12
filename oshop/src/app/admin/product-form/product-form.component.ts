@@ -7,7 +7,8 @@ import { Router, ActivatedRoute } from "@angular/router";
 import { AppUser } from "../../model/app-user";
 import { element } from "../../../../node_modules/@angular/core/src/render3/instructions";
 import { NgForm } from "../../../../node_modules/@angular/forms";
-import { take, elementAt } from "rxjs/operators";
+import { take, elementAt, map } from "rxjs/operators";
+import { ProductData } from "../../ProductData";
 
 @Component({
   selector: "app-product-form",
@@ -16,7 +17,12 @@ import { take, elementAt } from "rxjs/operators";
 })
 export class ProductFormComponent implements OnInit {
   categories$;
-  product;
+  product: ProductData = {
+    category: null,
+    imageUrl: null,
+    price: 0,
+    title: null
+  };
   /* arr = {
     0: String,
     1: String,
@@ -35,25 +41,32 @@ export class ProductFormComponent implements OnInit {
     let id = this.route.snapshot.paramMap.get("id");
     console.log("id is : " + id);
     if (id) {
+      /*  this.product1 = this.productService
+        .get(id)
+        .valueChanges()
+        .pipe(take(1)); */
+      /* this.product1.subscribe(p => {
+        //(this.product = p)
+        this.data = p;
+        this.product = p;
+        console.log(p);
+        let i = 0;
+        this.data.map(element => {
+          console.log("" + element);
+        });
+      }); */
+
       this.product1 = this.productService
         .get(id)
         .valueChanges()
         .pipe(take(1));
       this.product1.subscribe(p => {
-        /* (this.product = p) */
         this.data = p;
-        this.product = p;
-        console.log(p);
-        let i = 0;
-        this.data.forEach(element => {
-          console.log(element);
-          /*  this.arr[i] = element;
-          i = i + 1; */
-        });
       });
-
-      console.log("Product ");
       console.log(this.product);
+
+      /* console.log("Product ");
+      console.log(this.product); */
     }
   }
 
